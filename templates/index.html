@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title></title>
+</head>
+<body>
+    {% if message %}
+        <h5 style="color: red;">ALERT: {{ message }}</h5>
+    {% endif %}
+    <span style="font-size:30px;">Welcome to Blackjack</span>
+     <span style="font-size:15px;">Your id: {{user_data['user_id']}}</span>
+    <br/>
+    <img src="{{url_for('static', filename='img.png')}}" style="width: 300px; height: 200px;"/>
+    <form method="get" action="/start">
+        To start game press: <button type="submit">start</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title></title>
+</head>
+<body>
+    <div style="display: flex; justify-content: space-around;">
+        <div class="game">
+            <div class="player_statistics">
+
+                <h4> Your cards: </h4>
+                {% for card_name in room.player %}
+                    {{ card_name }};
+                {% endfor %}
+                <span>Total score: </span> {{ room.getScore(room.player) }}
+            </div>
+
+            {% if not room.isFinish()  %}
+            <div class="manage_buttons" style="display: flex; justify-content: space-around;">
+                <form method="get" action="/room/{{room.room_id}}/hit">
+                     <button type="submit">HIT</button>
+                </form>
+                <form method="get" action="/room/{{room.room_id}}/stand">
+                     <button type="submit">STAND</button>
+                </form>
+                  <form method="get" action="/room/{{room.room_id}}/quit">
+                     <button type="submit">QUIT</button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+        <div class="log">
+            <h5>Game log:</h5>
+            {% for record in room.records %}
+                [{{record.timestamp}}] {{record.author}}: {{record.text}}
+            <br/>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
