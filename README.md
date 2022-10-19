@@ -12,7 +12,6 @@
 2. Докрутить GUI
 3. Добавить web-server
 4. Добавлены тесты(протестировано в видео)
-https://disk.yandex.ru/i/NVZQ4A-AabUoPg
-
+https://disk.yandex.ru/i/JSBmFWcGyXEzPQ
 
 В дальнейшем согласовать с заказчиков pvp модель и то, что должен сделать бот
