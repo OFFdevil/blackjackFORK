@@ -2,7 +2,6 @@ from enum import Enum
 import datetime
 import random
 
-
 class RoomState(Enum):
     gmae = 1
     bee = 2
@@ -18,7 +17,7 @@ class Record:
 
 
 class Room:
-    def __init__(self, room_id, user_id=None):
+    def __init__(self, room_id, user_id=None, user=None):
         self.player = []
         self.croupierCarts = []
         self.isFinishField = False
@@ -26,7 +25,10 @@ class Room:
         random.shuffle(self.carts)
         self.room_id = room_id
         self.user_id = None
+        self.user = user
         self.records = []
+        
+        self.bid = 0
 
         self.StartGameOnePlayer()
 
@@ -42,6 +44,7 @@ class Room:
             self.player.append(self.carts.pop())
 
     def getNextCartForPlayers(self, array, is_me=False):
+        random.shuffle(self.carts)
         card = self.carts.pop()
         array.append(card)
         if is_me:
@@ -64,8 +67,8 @@ class Room:
 
     def printResults(self):
         result = ''
-        result += "Dealaer carts: " + str(self.croupierCarts) + ". Total score: " + str(self.getScore(self.croupierCarts)) + " \n"
-        result += "You carts:" + str(self.player) + ". Total score: " + str(self.getScore(self.player))
+        result += "Dealaer carts: " + str(self.croupierCarts) + ". Total score: " + str(self.getScore(self.croupierCarts)) + "\n"
+        result += "You carts:" + str(self.player) + ". Total score: " + str(self.getScore(self.player)) + "\n"
         return result
 
     def checkBlackjack(self):
@@ -85,19 +88,26 @@ class Room:
     def getResults(self):
         result = self.printResults()
         if self.getScore(self.player) == 21:
-            result += "You winner!\n"
+            result += "You winner" + self.bid * 2 + "!\n"
+            self.user.balance += self.bid * 2
         elif self.getScore(self.croupierCarts) == 21:
-            result += "You lose! You stupid! Dealer win!\n"
+            result += "You lose" + self.bid + "! You stupid! Dealer win!\n"
+            self.user.balance -= self.bid
         elif self.getScore(self.player) > 21:
-            result += "You lose! Total score > 21!\n"
+            result += "You lose" + self.bid + "! Total score > 21!\n"
+            self.user.balance -= self.bid
         elif self.getScore(self.croupierCarts) > 21:
-            result += "You win! Dealers total score > 21!\n"
+            result += "You win" + self.bid * 2 + "! Dealers total score > 21!\n "
+            self.user.balance += self.bid * 2
         elif self.getScore(self.player) < self.getScore(self.croupierCarts):
-            result += "You lose! Your score least than dealer score!\n"
+            result += "You lose" + self.bid + "! Your score least than dealer score!\n"
+            self.user.balance -= self.bid
         elif self.getScore(self.player) > self.getScore(self.croupierCarts):
-            result += "You win! Yout score is higher tha the dealers score!\n"
+            result += "You win" + self.bid * 2 + "! Yout score is higher tha the dealers score!\n"
+            self.user.balance += self.bid * 2
         else:
-            result += "You don't lose and don't win! Gool luck)\n"
+            result += "You don't lose and don't win! Gool luck)\n!"
+            self.user.balance += self.bid
         self.records.append(Record("Game", result))
         self.isFinishField = True
         return result
@@ -126,6 +136,13 @@ class Room:
         self.getResults()
 
         self.records.append(Record('Сroupier', "Bye!"))
+
+    def bet(self, bid):
+        if self.user.balance < bid:
+            self.records.append(Record('You', "You don't have so much money!!!!!"))
+        else :
+            self.bid += bid
+            self.records.append(Record('You', "You bid increased by " + bid + "!"))
 
     def gameFinish(self):
         self.isFinishField = True
