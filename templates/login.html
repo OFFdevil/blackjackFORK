@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title></title>
+</head>
+<body background="../static/bg.jpg">
+    {% if message %}
+        <h5 style="color: red;">ALERT: {{ message }}</h5>
+    {% endif %}
+    <form method="post" action="/login" style="padding:25px;">
+        Login: 
+        <br/>
+        <input type="text" name="login" value=""> 
+        <br/>  
+        Password: 
+        <br/>
+        <input type="password" name="password" value="">
+        <br/>
+        <button type="submit">login or register</button>
+   </form>
+</body>
+</html>
