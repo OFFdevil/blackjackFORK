@@ -19,8 +19,9 @@
 
     <br/>
     <img src="{{url_for('static', filename='img.png')}}" style="width: 300px; height: 200px;"/>
-    <form method="get" action="/start">
-        To start game press: <button type="submit">start</button>
+    <form method="post" action="/start">
+        Bet: <input type="number" min="1" name="bet" value="1">
+        <button type="submit">start</button>
     </form>
 </body>
 </html>

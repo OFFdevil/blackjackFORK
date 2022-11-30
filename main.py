@@ -39,14 +39,22 @@ def index():
     return render_template('index.html', user_data=users[session['user_id']], message=msg)
 
 
-@app.route('/start', methods=['GET'])
+@app.route('/start', methods=['GET', 'POST'])
 def start():
     if not check_auth():
         return redirect('/login')
     
-    room_id = str(uuid.uuid4())
     user = users[session['user_id']]
-    rooms[room_id] = Room(room_id, user_id=session['user_id'], user=user)
+    
+    bet = int(request.form['bet'])
+
+    if user.balance < bet:
+        session['message'] = 'Your balance is less than your bet!'
+        return redirect('/')
+
+
+    room_id = str(uuid.uuid4())
+    rooms[room_id] = Room(room_id, bet, user_id=session['user_id'], user=user)
     return redirect(f'/room/{room_id}')
 
 
