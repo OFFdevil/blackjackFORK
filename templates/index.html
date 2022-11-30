@@ -4,12 +4,16 @@
   <meta charset="utf-8" />
   <title></title>
 </head>
-<body>
+<body background="../static/bg.jpg">
     {% if message %}
         <h5 style="color: red;">ALERT: {{ message }}</h5>
     {% endif %}
     <span style="font-size:30px;">Welcome to Blackjack</span>
-     <span style="font-size:15px;">Your id: {{user_data['user_id']}}</span>
+    <br/>
+    <span style="font-size:15px;">Your id: {{user_data.login}}</span>
+    <br/> 
+    <span style="font-size:15px;">Your balance: {{user_data.balance}}</span>
+
     <br/>
     <img src="{{url_for('static', filename='img.png')}}" style="width: 300px; height: 200px;"/>
     <form method="get" action="/start">
