@@ -17,7 +17,7 @@ class Record:
 
 
 class Room:
-    def __init__(self, room_id, user_id=None):
+    def __init__(self, room_id, user_id=None, user=None):
         self.player = []
         self.croupierCarts = []
         self.isFinishField = False
@@ -25,6 +25,7 @@ class Room:
         random.shuffle(self.carts)
         self.room_id = room_id
         self.user_id = None
+        self.user = user
         self.records = []
         
         self.bid = 0

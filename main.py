@@ -45,7 +45,8 @@ def start():
         return redirect('/login')
     
     room_id = str(uuid.uuid4())
-    rooms[room_id] = Room(room_id, user_id=session['user_id'])
+    user = users[session['user_id']]
+    rooms[room_id] = Room(room_id, user_id=session['user_id'], user=user)
     return redirect(f'/room/{room_id}')
 
 
