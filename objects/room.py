@@ -2,13 +2,6 @@ from enum import Enum
 import datetime
 import random
 
-class RoomState(Enum):
-    gmae = 1
-    bee = 2
-    cat = 3
-    dog = 4
-
-
 class Record:
     def __init__(self, author, text):
         self.author = author
