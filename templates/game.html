@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <title></title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+
 </head>
 <body background="../static/bg.jpg">
     <div style="display: flex; justify-content: space-around;">
@@ -28,7 +31,12 @@
                      <button type="submit">QUIT</button>
                 </form>
             </div>
+
+            {% else %}
+                <a href="/">exit</a>
             {% endif %}
+
+            
         </div>
         <div class="log">
             <h5>Game log:</h5>
