@@ -64,7 +64,7 @@ class Room:
 
     def printResults(self):
         result = ''
-        result += "Dealaer carts: " + str(self.croupierCarts) + ". Total score: " + str(self.getScore(self.croupierCarts)) + "\n"
+        result += "Dealaer carts: " + str(self.croupierCarts) + ". Total score: " + str(self.getScore(self.croupierCarts)) + " \n"
         result += "You carts:" + str(self.player) + ". Total score: " + str(self.getScore(self.player))
         return result
 
