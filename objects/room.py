@@ -17,7 +17,7 @@ class Record:
 
 
 class Room:
-    def __init__(self, room_id, user_id=None, user=None):
+    def __init__(self, room_id, bet, user_id=None, user=None):
         self.player = []
         self.croupierCarts = []
         self.isFinishField = False
@@ -28,7 +28,7 @@ class Room:
         self.user = user
         self.records = []
         
-        self.bid = 0
+        self.bid = bet
 
         self.StartGameOnePlayer()
 
