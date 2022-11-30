@@ -42,6 +42,7 @@ class Room:
             self.player.append(self.carts.pop())
 
     def getNextCartForPlayers(self, array, is_me=False):
+        random.shuffle(self.carts)
         card = self.carts.pop()
         array.append(card)
         if is_me:
