@@ -91,13 +91,16 @@ class Room:
             self.user.balance += self.bid * 2
         elif self.getScore(self.croupierCarts) == 21:
             result += "You lose" + self.bid + "! You stupid! Dealer win!\n"
+            self.user.balance -= self.bid
         elif self.getScore(self.player) > 21:
             result += "You lose" + self.bid + "! Total score > 21!\n"
+            self.user.balance -= self.bid
         elif self.getScore(self.croupierCarts) > 21:
             result += "You win" + self.bid * 2 + "! Dealers total score > 21!\n "
             self.user.balance += self.bid * 2
         elif self.getScore(self.player) < self.getScore(self.croupierCarts):
             result += "You lose" + self.bid + "! Your score least than dealer score!\n"
+            self.user.balance -= self.bid
         elif self.getScore(self.player) > self.getScore(self.croupierCarts):
             result += "You win" + self.bid * 2 + "! Yout score is higher tha the dealers score!\n"
             self.user.balance += self.bid * 2
@@ -137,7 +140,6 @@ class Room:
         if self.user.balance < bid:
             self.records.append(Record('You', "You don't have so much money!!!!!"))
         else :
-            self.user.balance -= bid
             self.bid += bid
             self.records.append(Record('You', "You bid increased by " + bid + "!"))
 
