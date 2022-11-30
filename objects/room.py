@@ -24,7 +24,7 @@ class Room:
         self.carts = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"] * 4
         random.shuffle(self.carts)
         self.room_id = room_id
-        self.user_id = user_id
+        self.user_id = None
         self.user = user
         self.records = []
         
