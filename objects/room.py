@@ -17,14 +17,15 @@ class Record:
 
 
 class Room:
-    def __init__(self, room_id, user_id=None):
+    def __init__(self, room_id, user_id=None, user=None):
         self.player = []
         self.croupierCarts = []
         self.isFinishField = False
         self.carts = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"] * 4
         random.shuffle(self.carts)
         self.room_id = room_id
-        self.user_id = None
+        self.user_id = user_id
+        self.user = user
         self.records = []
         
         self.bid = 0
