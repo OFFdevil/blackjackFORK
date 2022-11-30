@@ -2,8 +2,6 @@ from enum import Enum
 import datetime
 import random
 
-DB_score_player = {}
-
 class RoomState(Enum):
     gmae = 1
     bee = 2
@@ -89,19 +87,23 @@ class Room:
     def getResults(self):
         result = self.printResults()
         if self.getScore(self.player) == 21:
-            result += "You winner!\n"
+            result += "You winner" + self.bid * 2 + "!\n"
+            self.user.balance += self.bid * 2
         elif self.getScore(self.croupierCarts) == 21:
-            result += "You lose! You stupid! Dealer win!\n"
+            result += "You lose" + self.bid + "! You stupid! Dealer win!\n"
         elif self.getScore(self.player) > 21:
-            result += "You lose! Total score > 21!\n"
+            result += "You lose" + self.bid + "! Total score > 21!\n"
         elif self.getScore(self.croupierCarts) > 21:
-            result += "You win! Dealers total score > 21!\n "
+            result += "You win" + self.bid * 2 + "! Dealers total score > 21!\n "
+            self.user.balance += self.bid * 2
         elif self.getScore(self.player) < self.getScore(self.croupierCarts):
-            result += "You lose! Your score least than dealer score!\n"
+            result += "You lose" + self.bid + "! Your score least than dealer score!\n"
         elif self.getScore(self.player) > self.getScore(self.croupierCarts):
-            result += "You win! Yout score is higher tha the dealers score!\n"
+            result += "You win" + self.bid * 2 + "! Yout score is higher tha the dealers score!\n"
+            self.user.balance += self.bid * 2
         else:
-            result += "You don't lose and don't win! Gool luck)\n"
+            result += "You don't lose and don't win! Gool luck)\n!"
+            self.user.balance += self.bid
         self.records.append(Record("Game", result))
         self.isFinishField = True
         return result
@@ -132,10 +134,10 @@ class Room:
         self.records.append(Record('Сroupier', "Bye!"))
 
     def bet(self, bid):
-        if DB_score_player[self.user_id] < bid:
+        if self.user.balance < bid:
             self.records.append(Record('You', "You don't have so much money!!!!!"))
         else :
-            DB_score_player[self.user_id] -= bid
+            self.user.balance -= bid
             self.bid += bid
             self.records.append(Record('You', "You bid increased by " + bid + "!"))
 
