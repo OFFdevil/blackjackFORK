@@ -2,6 +2,7 @@ from enum import Enum
 import datetime
 import random
 
+DB_score_player = {}
 
 class RoomState(Enum):
     gmae = 1
@@ -27,6 +28,8 @@ class Room:
         self.room_id = room_id
         self.user_id = None
         self.records = []
+        
+        self.bid = 0
 
         self.StartGameOnePlayer()
 
@@ -92,7 +95,7 @@ class Room:
         elif self.getScore(self.player) > 21:
             result += "You lose! Total score > 21!\n"
         elif self.getScore(self.croupierCarts) > 21:
-            result += "You win! Dealers total score > 21!\n"
+            result += "You win! Dealers total score > 21!\n "
         elif self.getScore(self.player) < self.getScore(self.croupierCarts):
             result += "You lose! Your score least than dealer score!\n"
         elif self.getScore(self.player) > self.getScore(self.croupierCarts):
@@ -127,6 +130,14 @@ class Room:
         self.getResults()
 
         self.records.append(Record('Сroupier', "Bye!"))
+
+    def bet(self, bid):
+        if DB_score_player[self.user_id] < bid:
+            self.records.append(Record('You', "You don't have so much money!!!!!"))
+        else :
+            DB_score_player[self.user_id] -= bid
+            self.bid += bid
+            self.records.append(Record('You', "You bid increased by " + bid + "!"))
 
     def gameFinish(self):
         self.isFinishField = True
